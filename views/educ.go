@@ -30,6 +30,8 @@ func EducHandler(w http.ResponseWriter, r *http.Request) {
 	switch page {
 	case "dashboard":
 		context = Dashboard(w, r)
+	case "students":
+		context = Students(w, r)
 	default:
 		page = "dashboard"
 		context = Dashboard(w, r)
