@@ -1,7 +1,7 @@
 {{ define "content"}}
     <h1>Students</h1>
     <hr>
-    <div class="col-xl-12 col-sm-6 mb-xl-0 mb-4">
+    <div class="col-xl-12 col-sm-12 mb-xl-0 mb-4">
         <br>
         <div class="card">
         <div class="card-header p-3 pt-2">
@@ -9,7 +9,7 @@
                 <i class="material-icons opacity-10">person</i>
             </div>
             <div class="text-end">
-                <button class="btn btn-secondary btn-sm mb-0"> Add Student</button>
+                <button class="btn btn-secondary btn-sm mb-0" id="add_student" data-target="#addstudent_modal" data-toggle="modal" data-backdrop="static" data-keyboard="false"> Add Student</button>
             </div>
             <div class="text pt-5">
                <div class="table-responsive">
@@ -34,7 +34,23 @@
                             </tr>
                         </thead>
                         <tbody>
-
+                            <tr>
+                                <td>
+                                    Firstname
+                                </td>
+                                <td>
+                                    Middlename
+                                </td>
+                                <td>
+                                    Lastname
+                                </td>
+                                <td>
+                                    Course
+                                </td>
+                                <td>
+                                    Year Level
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                </div>
@@ -46,4 +62,38 @@
         </div>
         </div>
     </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="addstudent_modal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Add Student</h5>
+            </div>
+            <div class="modal-body">
+                <div class="form-group mb-3">
+                    <form method="POST">
+                        <input type="text" name="fname" id="fname" placeholder="First Name" class="form-control"><br>
+                        <input type="text" name="mname" id="mname" placeholder="Middle Name" class="form-control"><br>
+                        <input type="text" name="lname" id="lname" placeholder="Last Name" class="form-control"><br>
+                        <input type="email" name="email" id="email" placeholder="Email Address" class="form-control"><br>
+                        <input type="number" name="cnumber" id="cnumber" placeholder="Contact Number" class="form-control"><br>
+                        <input type="text" name="address" id="address" placeholder="Address" class="form-control"><br>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" id="addstudent_save">Save changes</button>
+              <button type="button" class="btn btn-secondary" id="addstudent_close" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
+{{ end }}
+{{ define "script" }}
+    <script>
+        $("#addstudent_save").on("click", function(){
+            $.ajax
+        })
+    </script>
 {{ end }}

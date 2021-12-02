@@ -3,6 +3,7 @@ package main
 import (
 	"net/http"
 
+	"github.com/mark/educ/models"
 	"github.com/mark/educ/views"
 	"github.com/uadmin/uadmin"
 )
@@ -26,7 +27,9 @@ func DBConfig() {
 }
 
 func RegisterModels() {
-	uadmin.Register()
+	uadmin.Register(
+		models.Students{},
+	)
 }
 
 func Handlers() {
