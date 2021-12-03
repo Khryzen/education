@@ -1,8 +1,29 @@
 {
   "display_name": "Students",
   "fields": {
+    "Address": {
+      "display_name": "Address",
+      "help": "",
+      "pattern_msg": "",
+      "err_msg": {},
+      "Choices": {}
+    },
+    "Cnumber": {
+      "display_name": "Cnumber",
+      "help": "",
+      "pattern_msg": "",
+      "err_msg": {},
+      "Choices": {}
+    },
     "Course": {
       "display_name": "Course",
+      "help": "",
+      "pattern_msg": "",
+      "err_msg": {},
+      "Choices": {}
+    },
+    "Email": {
+      "display_name": "Email",
       "help": "",
       "pattern_msg": "",
       "err_msg": {},

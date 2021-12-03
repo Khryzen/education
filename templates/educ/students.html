@@ -33,8 +33,8 @@
                                 </th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
+                        <tbody id="student-listbody">
+                            <!-- <tr>
                                 <td>
                                     Firstname
                                 </td>
@@ -50,7 +50,7 @@
                                 <td>
                                     Year Level
                                 </td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                </div>
@@ -92,8 +92,61 @@
 {{ end }}
 {{ define "script" }}
     <script>
+        var tbody = $('#student-listbody')
+        window.onload = setup();
+
+        function setup(){
+            studenttable()
+        }
+        function studenttable(){
+            console.log('student')
+            var $query = "/admin/api/d/students/read/?"
+
+            // For displaying Query
+            $.get($query, function (response)
+            {
+                var student = response.result;
+                $.each(student, function(_, student)
+                {
+                    tbody.append(
+                        $("<tr>").append(
+                            $("<td>").text(student.Firstname),
+                            $("<td>").text(student.Middlename),
+                            $("<td>").text(student.Lastname),
+                            $("<td>").text(student.Course),
+                            $("<td>").text(student.YearLevel),
+                        )
+                    )
+                });
+            }, "json");
+        }
+
         $("#addstudent_save").on("click", function(){
-            $.ajax
+            $("#addstudent_modal").fadeOut(100)
+            $.ajax({
+                "method": "POST",
+                "data" : {
+                    "data-action" : "new_student",
+                    "firstname" : $("[name='fname']").val(),
+                    "middlename" : $("[name='mname']").val(),
+                    "lastname" : $("[name='lname']").val(),
+                    "email" : $("[name='email']").val(),
+                    "cnumber" : $("[name='cnumber']").val(),
+                    "address" : $("[name='address']").val(),
+                },
+                "success": function (data)
+                {
+                    Swal.fire({
+                    position: 'middle',
+                    icon: 'success',
+                    title: 'Student added succesfully',
+                    showConfirmButton: false,
+                    timer: 1500
+                    }).then((result) => {
+                        $(location).attr('href', '/educ/students/')
+                    });
+                }
+            })
         })
     </script>
 {{ end }}

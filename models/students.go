@@ -7,6 +7,9 @@ type Students struct {
 	Firstname  string
 	Middlename string
 	Lastname   string
+	Email      string
+	Cnumber    string
+	Address    string
 	Course     string
 	YearLevel  string
 }
