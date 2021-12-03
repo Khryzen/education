@@ -1,0 +1,72 @@
+{{ define "content" }}
+<h3 class="dashboard-header">Courses and Subjects</h3>
+<hr>
+<div class="row">
+    <div class="col-xl-6 col-sm-6 mb-xl-0 mb-4">
+        <div class="card">
+            <div class="card-header p-3 pt-2">
+                <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+                    <i class="material-icons opacity-10">school</i>
+                </div>
+                <div class="text-end">
+                    <button class="btn btn-secondary btn-sm mb-0 button-text" id="add_course" data-target="#addcourse_modal" data-toggle="modal" data-backdrop="static" data-keyboard="false"> Add Course</button>
+                </div>
+                <hr>
+                <!-- College of Engineering -->
+                <div class="table-responsive">
+                    <table class="table align-items-center">
+                        <thead>
+                            <tr>
+                                <th>
+                                    College of Engineering and Architecture
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <hr>
+                <!-- College of  Computer Sciences-->
+                <div class="table-responsive">
+                    <table class="table align-items-center">
+                        <thead>
+                            <tr>
+                                <th>
+                                    College of Computer Sciences
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <hr>
+                <!-- College of Education -->
+                <div class="table-responsive">
+                    <table class="table align-items-center">
+                        <thead>
+                            <tr>
+                                <th>
+                                    College of Education
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <hr>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6 col-sm-6 mb-xl-0 mb-4">
+        <div class="card">
+            <div class="card-header p-3 pt-2">
+                <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+                    <i class="material-icons opacity-10">book</i>
+                </div>
+                <div class="text-end">
+                    <button class="btn btn-secondary btn-sm mb-0 button-text" id="add_subject" data-target="#addsubject_modal" data-toggle="modal" data-backdrop="static" data-keyboard="false"> Add Subject</button>
+                </div>
+                <hr>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{ end }}

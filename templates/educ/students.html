@@ -1,5 +1,5 @@
 {{ define "content"}}
-    <h1>Students</h1>
+    <h1 class="dashboard-header">Students</h1>
     <hr>
     <div class="col-xl-12 col-sm-12 mb-xl-0 mb-4">
         <br>
@@ -9,48 +9,32 @@
                 <i class="material-icons opacity-10">person</i>
             </div>
             <div class="text-end">
-                <button class="btn btn-secondary btn-sm mb-0" id="add_student" data-target="#addstudent_modal" data-toggle="modal" data-backdrop="static" data-keyboard="false"> Add Student</button>
+                <input class="search-bar" type="text" name="search-student" id="search-student" placeholder="Search...">
+                <button class="btn btn-secondary btn-sm mb-0 button-text" id="add_student" data-target="#addstudent_modal" data-toggle="modal" data-backdrop="static" data-keyboard="false"> Add Student</button>
             </div>
             <div class="text pt-5">
                <div class="table-responsive">
-                    <table class="table aliign-items-center mb-0">
+                    <table class="table align-items-center">
                         <thead>
                             <tr>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                <th class="text-uppercase text-secondary text-m font-weight-bolder opacity-9 table-textheader">
                                     Firstname
                                 </th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                <th class="text-uppercase text-secondary text-m font-weight-bolder opacity-9 table-textheader">
                                     Middlename
                                 </th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                <th class="text-uppercase text-secondary text-m font-weight-bolder opacity-9 table-textheader">
                                     Lastname
                                 </th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                <th class="text-uppercase text-secondary text-m font-weight-bolder opacity-9 table-textheader">
                                     Course
                                 </th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                <th class="text-uppercase text-secondary text-m font-weight-bolder opacity-9 table-textheader">
                                     Year Level
                                 </th>
                             </tr>
                         </thead>
                         <tbody id="student-listbody">
-                            <!-- <tr>
-                                <td>
-                                    Firstname
-                                </td>
-                                <td>
-                                    Middlename
-                                </td>
-                                <td>
-                                    Lastname
-                                </td>
-                                <td>
-                                    Course
-                                </td>
-                                <td>
-                                    Year Level
-                                </td>
-                            </tr> -->
                         </tbody>
                     </table>
                </div>
@@ -110,11 +94,11 @@
                 {
                     tbody.append(
                         $("<tr>").append(
-                            $("<td>").text(student.Firstname),
-                            $("<td>").text(student.Middlename),
-                            $("<td>").text(student.Lastname),
-                            $("<td>").text(student.Course),
-                            $("<td>").text(student.YearLevel),
+                            $("<td>").attr("class", "text-uppercase text-secondary text-m").text(student.Firstname),
+                            $("<td>").attr("class", "text-uppercase text-secondary text-m").text(student.Middlename),
+                            $("<td>").attr("class", "text-uppercase text-secondary text-m").text(student.Lastname),
+                            $("<td>").attr("class", "text-uppercase text-secondary text-m").text(student.Course),
+                            $("<td>").attr("class", "text-uppercase text-secondary text-m").text(student.YearLevel),
                         )
                     )
                 });
