@@ -29,6 +29,8 @@ func DBConfig() {
 func RegisterModels() {
 	uadmin.Register(
 		models.Students{},
+		models.Course{},
+		models.Subjects{},
 	)
 }
 
