@@ -34,6 +34,8 @@ func EducHandler(w http.ResponseWriter, r *http.Request) {
 		context = Students(w, r)
 	case "courses":
 		context = Courses(w, r)
+	case "registrar":
+		context = Registrar(w, r)
 	default:
 		page = "dashboard"
 		context = Dashboard(w, r)

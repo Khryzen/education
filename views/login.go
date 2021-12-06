@@ -1,13 +1,13 @@
 package views
 
 import (
-	"html/template"
 	"net/http"
 
 	"github.com/uadmin/uadmin"
 )
 
 func LoginHandler(w http.ResponseWriter, r *http.Request) {
+	context := map[string]interface{}{}
 	session := uadmin.IsAuthenticated(r)
 
 	if session != nil {
@@ -18,16 +18,27 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	user := uadmin.User{}
 
 	if r.Method == "POST" {
-		if r.FormValue("request") == "Log In" {
-			username := r.FormValue("username")
-			password := r.FormValue("password")
+		username := r.FormValue("username")
+		password := r.FormValue("password")
 
-			uadmin.Trail(uadmin.DEBUG, "Username: %v", username)
-			uadmin.Trail(uadmin.DEBUG, "Password: %v", password)
+		if username == "" {
+			context["login_denied"] = true
+			context["err_msg"] = "Please input your username."
+		}
 
+		if password == "" {
+			context["login_denied"] = true
+			context["err_msg"] = "Please input your password."
+		}
+
+		if username == "" && password == "" {
+			context["login_denied"] = true
+			context["err_msg"] = "Please input your username and password."
+		}
+
+		if username != "" && password != "" {
 			uadmin.Get(&user, "username=?", username)
-			uadmin.Trail(uadmin.DEBUG, "USERNAME: %v", user.Username)
-			uadmin.Trail(uadmin.DEBUG, "PASSWORD: %v", user.Password)
+
 			session := user.Login(password, "")
 
 			if session != nil {
@@ -37,19 +48,16 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 					Value:    session.Key,
 					SameSite: http.SameSiteStrictMode,
 				})
-				http.Redirect(w, r, "/educ/dashboard/", http.StatusSeeOther)
-				return
-			}
 
+				http.Redirect(w, r, "/educ/dashboard/", 303)
+				return
+			} else {
+				context["login_denied"] = true
+				context["err_msg"] = "Login denied"
+			}
 		}
 	}
-	t, err := template.ParseFiles("./templates/login.html")
-	if err != nil {
-		uadmin.Trail(uadmin.ERROR, "Error %v", err.Error())
-	}
-	err = t.ExecuteTemplate(w, "login.html", "")
-	uadmin.Trail(uadmin.DEBUG, "ERR: %v", err)
-
+	uadmin.RenderHTML(w, r, "./templates/login.html", context)
 }
 
 func LogoutHandler(w http.ResponseWriter, r *http.Request) {

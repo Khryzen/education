@@ -35,7 +35,7 @@ func RegisterModels() {
 }
 
 func Handlers() {
-	http.HandleFunc("/login/", uadmin.Handler(views.LoginHandler))
+	http.HandleFunc("/", uadmin.Handler(views.LoginHandler))
 	http.HandleFunc("/logout/", uadmin.Handler(views.LogoutHandler))
 	http.HandleFunc("/educ/", uadmin.Handler(views.EducHandler))
 }
