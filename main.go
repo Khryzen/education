@@ -31,6 +31,7 @@ func RegisterModels() {
 		models.Students{},
 		models.Course{},
 		models.Subjects{},
+		models.College{},
 	)
 }
 

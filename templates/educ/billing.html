@@ -1,0 +1,42 @@
+{{ define "content"}}
+<h3  class="dashboard-header">Billing</h3>
+<hr>
+<div class="col-xl-12 col-sm-12 mb-xl-0 mb-4">
+  <br>
+  <div class="card">
+  <div class="card-header p-3 pt-2">
+      <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+          <i class="material-icons opacity-10">person</i>
+      </div>
+      <div class="text-end">
+          <input class="search-bar" type="text" name="search-student" id="search-student" placeholder="Search...">
+          <button class="btn btn-secondary btn-sm mb-0 button-text" id="add_student" data-target="#addcollege_modal" data-toggle="modal" data-backdrop="static" data-keyboard="false"> Add Colleges</button>
+      </div>
+      <div class="text pt-5">
+         <div class="table-responsive">
+              <table class="table align-items-center">
+                  <thead>
+                      <tr>
+                          <th class="text-uppercase text-secondary text-m font-weight-bolder opacity-9 table-textheader">
+                              College
+                          </th>
+                          <th class="text-uppercase text-secondary text-m font-weight-bolder opacity-9 table-textheader">
+                              Department
+                          </th>
+                          <th class="text-uppercase text-secondary text-m font-weight-bolder opacity-9 table-textheader">
+                              Course Counts
+                          </th>
+                          <th class="text-uppercase text-secondary text-m font-weight-bolder opacity-9 table-textheader">
+                              Students Enrolled
+                          </th>
+                      </tr>
+                  </thead>
+                  <tbody id="student-listbody">
+                  </tbody>
+              </table>
+         </div>
+      </div>
+  </div>
+  </div>
+</div>
+{{ end }}
