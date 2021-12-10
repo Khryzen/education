@@ -8,35 +8,46 @@
         <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
             <i class="material-icons opacity-10">settings</i>
         </div>
-        <div class="text-end">
-            <input class="search-bar" type="text" name="search-student" id="search-student" placeholder="Search...">
-            <button class="btn btn-secondary btn-sm mb-0 button-text" id="add_student" data-target="#addcollege_modal" data-toggle="modal" data-backdrop="static" data-keyboard="false"> Add Colleges</button>
-        </div>
-        <div class="text pt-5">
-          <div class="table-responsive">
-                <table class="table align-items-center">
-                    <thead>
-                        <tr>
-                            <th class="text-uppercase text-secondary text-m font-weight-bolder opacity-9 table-textheader">
-                                College
-                            </th>
-                            <th class="text-uppercase text-secondary text-m font-weight-bolder opacity-9 table-textheader">
-                                Courses
-                            </th>
-                            <th class="text-uppercase text-secondary text-m font-weight-bolder opacity-9 table-textheader">
-                                Course Counts
-                            </th>
-                            <th class="text-uppercase text-secondary text-m font-weight-bolder opacity-9 table-textheader">
-                                Students Enrolled
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody id="student-listbody">
-                    </tbody>
-                </table>
-          </div>
-        </div>
+        <div class="text p-5">
+            <hr>
+            <div class="form-group mb-3">
+                <form method="POST">
+                    <h5 class="dashboard-header" >First Name</h5>
+                    <input type="text" id="fname" class="form-control input-capital" ><br>
+                    <h5 class="dashboard-header">Last Name</h5>
+                    <input type="text" id="lname" class="form-control input-capital"><br>
+                    <h5 class="dashboard-header">Username</h5>
+                    <input type="text" id="uname" class="form-control" ><br>
+                    <h5 class="dashboard-header">Email Address</h5>
+                    <input type="text" id="email" class="form-control" ><br>
+                    <h5 class="dashboard-header">New Password</h5>
+                    <input type="password" id="npass" class="form-control" ><br>
+                    <h5 class="dashboard-header">Repeat New Password</h5>
+                    <input type="password" id="rnpass" class="form-control" ><br>
+                    <button type="button" class="btn btn-success" id="settings_save">Save changes</button>
+                    <button type="button" class="btn btn-secondary" id="settings_cancel">Cancel changes</button>
+                </form>
+            </div>
+        </div> 
     </div>
   </div>
 </div>
+{{ end }}
+
+{{ define "script" }}
+<script>
+    // Globals
+    var $user = $("#uname").val()
+    var $api = "/admin/api/d/user/read/?/&username="
+    var $query =  $api + $user
+
+    $("#settings_save").on("click", function(){
+        console.log("Settings Save Click")
+        console.log($user)
+        console.log($query)
+    })
+    $("#settings_cancel").on("click", function(){
+        console.log("Settings Cancel Click");
+    })
+</script>
 {{ end }}

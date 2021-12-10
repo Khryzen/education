@@ -24,3 +24,7 @@
     letter-spacing: 0px;
     border-bottom: 1px solid #f0f2f5;
 }
+
+.input-capital{
+    text-transform: uppercase;
+}
