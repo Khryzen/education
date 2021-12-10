@@ -6,7 +6,7 @@
   <div class="card">
     <div class="card-header p-3 pt-2">
         <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
-            <i class="material-icons opacity-10">person</i>
+            <i class="material-icons opacity-10">dashboard</i>
         </div>
         <div class="text-end">
             <input class="search-bar" type="text" name="search-student" id="search-student" placeholder="Search...">
@@ -31,7 +31,7 @@
                             </th>
                         </tr>
                     </thead>
-                    <tbody id="student-listbody">
+                    <tbody id="college-listbody">
                     </tbody>
                 </table>
           </div>
@@ -68,6 +68,58 @@
 {{ end }}
 {{ define "script" }}
 <script>
-  
+  var collegetablelist = $('#college-listbody')
+  window.onload = setup();
+
+  function setup(){
+    collegetable()
+  }
+  function collegetable(){
+    var $query = "/admin/api/d/college/read/?"
+
+    // For displaying Query
+    $.get($query, function (response)
+    {
+      var college = response.result;
+      $.each(college, function(_, college)
+      {
+        collegetablelist.append(
+          $("<tr>").append(
+            $("<td>").attr("class", "text-uppercase text-secondary text-m").text(college.CollegeName),
+            $("<td>").attr("class", "text-uppercase text-secondary text-m").text(college.Courses),
+            $("<td>").attr("class", "text-uppercase text-secondary text-m").text(college.CoursesCount),
+            $("<td>").attr("class", "text-uppercase text-secondary text-m").text(college.StudentsEnrolled),
+          )
+          )
+      });
+    }, "json");
+  }
+
+  $("#addcollege_save").on("click", function(){
+    $("#addcollege_modal").fadeOut(100)
+    $.ajax({
+      "method": "POST",
+      "data" : {
+        "data-action" : "new_college",
+        "college" : $("[id='college']").val(),
+        "collegedesc" : $("[id='collegedesc']").val(),
+        "fieledmajor" : $("[id='fieledmajor']").val(),
+        "collegeemail" : $("[id='collegeemail']").val(),
+        "collegecnumber" : $("[id='collegecnumber']").val(),
+      },
+      "success": function (data)
+      {
+        Swal.fire({
+        position: 'middle',
+        icon: 'success',
+        title: 'Courses added succesfully',
+        showConfirmButton: false,
+        timer: 1500
+        }).then((result) => {
+            $(location).attr('href', '/educ/college/')
+        });
+      }
+    })
+  })
 </script>
 {{ end }}
