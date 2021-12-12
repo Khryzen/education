@@ -1,6 +1,13 @@
 {
   "display_name": "Subjects",
   "fields": {
+    "Course": {
+      "display_name": "Course",
+      "help": "",
+      "pattern_msg": "",
+      "err_msg": {},
+      "Choices": {}
+    },
     "ID": {
       "display_name": "ID",
       "help": "",

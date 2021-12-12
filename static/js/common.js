@@ -39,98 +39,11 @@
     setCookie(cookie_name, "", new Date(+(new Date()) - (24 * 60 * 60 * 1000)).toUTCString());
   }
 
-  function modalOpen()
-  {
-    $('body').addClass('modal-open');
-  };
-
-  function modalClose()
-  {
-    $('body').removeClass('modal-open');
-  };
-
-  function taskPriority(priority)
-  {
-    switch (priority)
-    {
-      case 1:
-        return "Critical"
-      case 2:
-        return "Important"
-      case 3:
-        return "Normal"
-      case 4:
-        return "Low"
-    }
-  }
-
-  function selectTaskPriority(select_element)
-  {
-    var options = [1, 2, 3, 4];    
-
-    $.each(options, function (_, v)
-    {
-      select_element.append(
-        $("<option>").attr("value", v)
-                     .text(taskPriority(v))
-      );
-    });
-  }
-
-  function taskStatus(status)
-  {
-    switch (status)
-    {
-      case 1:
-        return "Open"
-      case 2:
-        return "Pending"
-      case 3:
-        return "Closed"
-      case 4:
-        return "Rescheduled"
-    }
-  }
-
-  function selectTaskStatus(select_element)
-  {
-    var options = [1, 2, 3, 4];    
-
-    $.each(options, function (_, v)
-    {
-      select_element.append(
-        $("<option>").attr("value", v)
-                     .text(taskStatus(v))
-      );
-    });
-  }
-
-  function clearFields()
-  {
-    $("input,select,textarea").val("");
-  }
-
-  win["modal"] = {
-    "open": modalOpen,
-    "close": modalClose
-  };
-
   win["common"] = {
     "cookie": {
       "set": setCookie,
       "get": getCookie,
       "delete": deleteCookie
-    },
-    "fields": {
-      "clear": clearFields
-    },
-    "task": {
-      "status": taskStatus,
-      "priority": taskPriority,
-      "select": {
-        "status": selectTaskStatus,
-        "priority": selectTaskPriority
-      }
     }    
   };
 })(window, document, $);

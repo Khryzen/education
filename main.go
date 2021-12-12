@@ -3,12 +3,14 @@ package main
 import (
 	"net/http"
 
+	"github.com/mark/educ/api"
 	"github.com/mark/educ/models"
 	"github.com/mark/educ/views"
 	"github.com/uadmin/uadmin"
 )
 
 func main() {
+
 	DBConfig()
 	RegisterModels()
 	Handlers()
@@ -39,6 +41,9 @@ func Handlers() {
 	http.HandleFunc("/", uadmin.Handler(views.LoginHandler))
 	http.HandleFunc("/logout/", uadmin.Handler(views.LogoutHandler))
 	http.HandleFunc("/educ/", uadmin.Handler(views.EducHandler))
+
+	http.HandleFunc("/api/", uadmin.Handler(api.APIHandler))
+
 }
 
 func PageSetup() {

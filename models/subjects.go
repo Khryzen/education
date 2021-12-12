@@ -6,6 +6,8 @@ import (
 
 type Subjects struct {
 	uadmin.Model
+	Course      Course
+	CourseID    uint
 	SubjectName string
 	Units       int
 }

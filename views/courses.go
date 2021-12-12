@@ -11,6 +11,12 @@ func Courses(w http.ResponseWriter, r *http.Request) map[string]interface{} {
 	// username := uadmin.IsAuthenticated(r).User.Username
 	context := map[string]interface{}{}
 
+	// user := uadmin.User{}
+	// uuser, _ := user.
+
+	// uadmin.Login()
+	// uadmin.GetAc
+
 	// Add course
 	if r.Method == "POST" {
 		dataAction := r.FormValue("data-action")

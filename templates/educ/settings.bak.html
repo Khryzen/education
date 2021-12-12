@@ -1,0 +1,172 @@
+{{ define "content"}}
+<h3  class="dashboard-header">Settings</h3>
+<hr>
+<div class="col-xl-12 col-sm-12 mb-xl-0 mb-4">
+  <br>
+  <div class="card">
+    <div class="card-header p-3 pt-2">
+        <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+            <i class="material-icons opacity-10">settings</i>
+        </div>
+        <div class="text p-5">
+            <hr>
+            <div class="form-group mb-3">
+                <form method="POST">
+                    <h5 class="dashboard-header" >First Name</h5>
+                    <input type="text" id="fname" class="form-control input-capital" ><br>
+                    <h5 class="dashboard-header">Last Name</h5>
+                    <input type="text" id="lname" class="form-control input-capital"><br>
+                    <h5 class="dashboard-header">Username</h5>
+                    <input type="text" name="uname" id="uname" placeholder="Username" class="form-control"><br>
+                    <h5 class="dashboard-header">Email Address</h5>
+                    <input type="text" id="email" class="form-control" ><br>
+                    <h5 class="dashboard-header">New Password</h5>
+                    <input type="password" id="npass" class="form-control" ><br>
+                    <h5 class="dashboard-header">Repeat New Password</h5>
+                    <input type="password" id="rnpass" class="form-control" ><br>
+                    <button type="button" class="btn btn-success" id="settings_save" data-target="#password_modal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Save changes</button>
+                    <button type="button" class="btn btn-secondary" id="settings_cancel">Cancel changes</button>
+                </form>
+            </div>
+        </div> 
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" tabindex="-1" role="dialog" id="password_modal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title dashboard-header">Confirm Password</h5>
+        </div>
+        <div class="modal-body">
+            <div class="form-group mb-3">
+                <form method="POST">
+                    <input type="password" name="password" id="password" placeholder="Password" class="form-control"><br>
+                    <input type="password" name="rpassword" id="rpassword" placeholder="Repeat Password" class="form-control"><br>
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" id="password_save">Confirm</button>
+          <button type="button" class="btn btn-secondary" id="password_close" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
+{{ end }}
+
+{{ define "script" }}
+<script>
+    var session = common.cookie.get("session");
+    var $get_session = "/admin/api/d/session/read/?&key=" + session + "&$preload=1";
+    var $userglobal 
+    $.get($get_session, function(data) {
+        var res = data.result;
+
+        $.each(res, function (_, response) {
+            var  user = response.User;
+            $("#fname").val(user.FirstName)
+            $("#lname").val(user.LastName)
+            $("#uname").val(user.Username)
+            $("#email").val(user.Email)
+            $userglobal = user.Username
+        });
+
+    }, "json");
+
+    
+    console.log("URL ", window.location.href)
+    $("#password_save").on("click", function(){
+        console.log("save")
+        if( $("#password").val() == $("#rpassword").val() ){
+            $.ajax({
+            url: "/api/validate_user",
+            dataType: "json",
+            data: {
+                "password": $("#password").val(),
+            },
+            success: function (data) {
+                console.log("data", data.msg);
+                console.log("userglobal",$userglobal)
+                if (data.msg == "password")
+                {
+                    console.log("AJAX");
+
+                    console.log($("#uname").val())
+                    $.ajax({
+                        url: "/api/validate_username",
+                        dataType: "json",
+                        data: {
+                            "newusername": $("#uname").val(),
+                        },
+                        success: function(data) {
+                            if (data.msg == "username already exist"){
+                                Swal.fire({
+                                    position: 'center',
+                                    icon: 'error',
+                                    title: 'Username already exists.',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                });
+                                $("#password").val("")
+                                $("#rpassword").val("")
+                                $("#password_close").click()
+                            }
+                            if (data.msg != "username already exist") {
+                                console.log("ELSE")
+                                $.ajax({
+                                    "method": "POST",
+                                    "data" : {
+                                        "data-action" : "saveuserchanges",
+                                        "firstname" : $("[name='fname']").val(),
+                                        "middlename" : $("[name='mname']").val(),
+                                        "lastname" : $("[name='lname']").val(),
+                                        "email" : $("[name='email']").val(),
+                                        "cnumber" : $("[name='cnumber']").val(),
+                                        "address" : $("[name='address']").val(),
+                                    },
+                                    "success": function (data)
+                                    {
+                                        Swal.fire({
+                                        position: 'center',
+                                        icon: 'success',
+                                        title: 'Settings updated succesfully',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                        }).then((result) => {
+                                            $(location).attr('href', '/educ/settings/')
+                                        });
+                                    }
+                                })
+                            }
+                            
+                        }
+
+                    });
+                    console.log("AJAX END");
+                }
+
+            }
+        });
+        }
+        else
+        {
+            console.log("Passwords don't match!")
+            Swal.fire({
+                position: 'middle',
+                icon: 'error',
+                title: 'Passwords do not match',
+                showConfirmButton: false,
+                timer: 1500
+            })
+            $("#password").val("")
+            $("#rpassword").val("")
+        }
+    })
+    $("#settings_cancel").on("click", function(){
+        console.log("Settings Cancel Click");
+    })
+</script>
+{{ end }}
