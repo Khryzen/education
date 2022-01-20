@@ -8,35 +8,46 @@
         <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
             <i class="material-icons opacity-10">person</i>
         </div>
-        <div class="text-end">
-            <input class="search-bar" type="text" name="search-student" id="search-student" placeholder="Search...">
-            <button class="btn btn-secondary btn-sm mb-0 button-text" id="add_student" data-target="#addcollege_modal" data-toggle="modal" data-backdrop="static" data-keyboard="false"> Add Colleges</button>
-        </div>
         <div class="text pt-5">
           <div class="table-responsive">
-                <table class="table align-items-center">
-                    <thead>
-                        <tr>
-                            <th class="text-uppercase text-secondary text-m font-weight-bolder opacity-9 table-textheader">
-                                College
-                            </th>
-                            <th class="text-uppercase text-secondary text-m font-weight-bolder opacity-9 table-textheader">
-                                Courses
-                            </th>
-                            <th class="text-uppercase text-secondary text-m font-weight-bolder opacity-9 table-textheader">
-                                Course Counts
-                            </th>
-                            <th class="text-uppercase text-secondary text-m font-weight-bolder opacity-9 table-textheader">
-                                Students Enrolled
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody id="student-listbody">
-                    </tbody>
-                </table>
+                <h3 class="dashboard-header mt-3" id="user_name"></h3>
+                <hr>
+                <img src="" id="profilephoto" alt="Profile Photo" class="profilephoto">
+                <h5 class="table-textheader mt-3" id="firstname"></h5>
+                <h5 class="table-textheader mt-3" id="lastname"></h5>
+                <h5 class="table-textheader mt-3" id="username"></h5>
+                <h5 class="table-textheader mt-3" id="email"></h5>
+                <h5 class="table-textheader mt-3" id="admin"></h5>
+                <h5 class="table-textheader mt-3" id="lastlogin"></h5>
+
           </div>
         </div>
     </div>
   </div>
 </div>
+{{ end }}
+
+{{ define "script"}}
+<script>
+    var session = common.cookie.get("session");
+    var $get_session = "/admin/api/d/session/read/?&key=" + session + "&$preload=1";
+    var $userglobal 
+    $.get($get_session, function(data) {
+        var res = data.result;
+
+        $.each(res, function (_, response) {
+            var  user = response.User;
+            $("#user_name").html("Welcome "+user.FirstName + " " + user.LastName)
+            $("#firstname").html("First Name: " + user.FirstName)
+            $("#lastname").html("Last Name: " + user.LastName)
+            $("#username").html("Username: "+user.Username)
+            $("#email").html("Email Address: "+user.Email)
+            $("#admin").html("Admin: " + user.Admin)
+            $("#lastlogin").html("Last Login: " + user.LastLogin)
+            $("#profilephoto").attr("src",user.Photo)
+            $userglobal = user.Username
+        });
+
+    }, "json");
+</script>
 {{ end }}
